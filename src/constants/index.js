@@ -1,5 +1,7 @@
 export const ROUTES = {
-  PHONE_SEARCH: '/',
+  LOGIN: '/',
+  SIGNUP: 'signup',
+  QR_VALIDATION: 'qrvalidation',
   POKEMON_LIST: 'pokemon-list',
   POKEMON_CREATE_UPDATE: 'create-update-pokemon',
 };

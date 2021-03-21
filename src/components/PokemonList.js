@@ -178,10 +178,7 @@ export default function PokemonList({
         />
       </Paper>
       <Box m={2}>
-        <Grid container justify="space-between">
-          <a href={ROUTES.PHONE_SEARCH}>
-            <small> Voltar a Tela de Pesquisa de Telefone</small>
-          </a>
+        <Grid container justify="center">
           <a href={ROUTES.POKEMON_CREATE_UPDATE}>
             <small>Criar novo Pokemon</small>
           </a>
