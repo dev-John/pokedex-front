@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '40%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
 
@@ -56,7 +56,7 @@ export default function Login({ login, otpAuthUrl }) {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <TextField
                 autoComplete="email"
                 name="email"
@@ -69,7 +69,7 @@ export default function Login({ login, otpAuthUrl }) {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <TextField
                 autoComplete="password"
                 name="password"
