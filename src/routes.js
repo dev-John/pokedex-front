@@ -1,11 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import PokemonList from './containers/PokemonList';
 import PokemonForm from './containers/Pokemon';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import QRCodeVerification from './containers/QRCodeVerification';
+import { isAuthenticated } from './helpers/auth';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route 
+    { ...rest }
+    render={props => isAuthenticated() ? (
+      <Component { ...props } />
+    ): (
+      <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+    )
+  }
+  />
+)
 
 export default function Routes() {
   return (
@@ -14,8 +27,8 @@ export default function Routes() {
         <Route path="/" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/qrvalidation" exact component={QRCodeVerification} />
-        <Route path="/create-update-pokemon" component={PokemonForm} />
-        <Route path="/pokemon-list" component={PokemonList} />
+        <PrivateRoute path="/create-update-pokemon" component={PokemonForm} />
+        <PrivateRoute path="/pokemon-list" component={PokemonList} />
       </Switch>
     </BrowserRouter>
   );

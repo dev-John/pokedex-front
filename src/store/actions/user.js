@@ -49,6 +49,7 @@ export function login({ email, password }) {
         if (isSuccess(res)) {
           // dispatch(getTotp());
           dispatch(setUser(res.data.data));
+          dispatch(setUserAuthenticated('verification'))
         } else {
           dispatch(setErrorMessage(res.data.message));
         }
@@ -79,6 +80,7 @@ export function verifyUser(answer) {
           // dispatch(getTotp());
           // dispatch(setUser(res.data.data));
           if (res.data.data.validated) {
+            localStorage.setItem('currentUser',true)
             dispatch(setUserAuthenticated(true));
           } else {
             dispatch(setErrorMessage('Código incorreto'));
@@ -91,5 +93,20 @@ export function verifyUser(answer) {
       .finally(() => {
         dispatch(setFetchingRequest(false));
       });
+  };
+}
+
+export function isAuthenticated() {
+  return (dispatch) => {
+    try {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        dispatch(setUserAuthenticated(true))
+      } else {
+        dispatch(setUserAuthenticated(false))
+      } 
+    } catch (error) {
+      dispatch(setUserAuthenticated(false));
+    }
   };
 }

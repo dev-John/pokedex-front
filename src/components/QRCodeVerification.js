@@ -37,7 +37,7 @@ export default function QRCodeVerification({ otpAuthUrl, verifyUser, isUserAuthe
   const [qrCode, setQrCode] = useState();
 
   useEffect(() => {
-    isUserAuthenticated && history.push(ROUTES.POKEMON_LIST);
+    if(isUserAuthenticated === true) history.push(ROUTES.POKEMON_LIST);
   }, [isUserAuthenticated]);
 
   const sendRequest = (e) => {
