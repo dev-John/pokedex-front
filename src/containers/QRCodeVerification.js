@@ -4,9 +4,9 @@ import QRCodeVerification from '../components/QRCodeVerification';
 import { verifyUser } from '../store/actions/user';
 
 const mapStateToProperties = (state) => {
-  const { otpAuthUrl } = state.user;
+  const { otpAuthUrl, isUserAuthenticated } = state.user;
 
-  return { otpAuthUrl };
+  return { otpAuthUrl, isUserAuthenticated };
 };
 
 const mapDispatchToProperties = (dispatch) => ({

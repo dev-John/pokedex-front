@@ -1,10 +1,11 @@
-import { SET_USER } from '../../constants/actionTypes';
+import { SET_USER, SET_USER_AUTHENTICATED } from '../../constants/actionTypes';
 import { api } from '../../helpers/http';
 import { makeActionCreator } from '../../helpers/mix';
 import { isSuccess } from '../action-utilities';
 import { setErrorMessage, setFetchingRequest, setSuccessMessage } from './messaging';
 
 export const setUser = makeActionCreator(SET_USER, 'data');
+export const setUserAuthenticated = makeActionCreator(SET_USER_AUTHENTICATED, 'status');
 
 export function signup({ name, email, password }) {
   return (dispatch, getState) => {
@@ -22,6 +23,7 @@ export function signup({ name, email, password }) {
         if (isSuccess(res)) {
           dispatch(setSuccessMessage('Usuário cadastrado com sucesso!'));
         } else {
+          console.log(res.data);
           dispatch(setErrorMessage(res.data.message));
         }
       })
@@ -75,7 +77,12 @@ export function verifyUser(answer) {
         if (isSuccess(res)) {
           console.log('🚀 ~ file: user.js ~ line 77 ~ .then ~ res', res);
           // dispatch(getTotp());
-          dispatch(setUser(res.data.data));
+          // dispatch(setUser(res.data.data));
+          if (res.data.data.validated) {
+            dispatch(setUserAuthenticated(true));
+          } else {
+            dispatch(setErrorMessage('Código incorreto'));
+          }
         } else {
           dispatch(setErrorMessage(res.data.message));
         }

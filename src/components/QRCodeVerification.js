@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -30,10 +31,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function QRCodeVerification({ otpAuthUrl, verifyUser }) {
-  console.log('🚀 ~ file: Login.js ~ line 36 ~ Login ~ otpAuthUrl', otpAuthUrl);
+export default function QRCodeVerification({ otpAuthUrl, verifyUser, isUserAuthenticated }) {
   const classes = useStyles();
+  const history = useHistory();
   const [qrCode, setQrCode] = useState();
+
+  useEffect(() => {
+    isUserAuthenticated && history.push(ROUTES.POKEMON_LIST);
+  }, [isUserAuthenticated]);
 
   const sendRequest = (e) => {
     e.preventDefault();
