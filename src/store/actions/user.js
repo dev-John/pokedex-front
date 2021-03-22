@@ -79,8 +79,9 @@ export function verifyUser(answer) {
           console.log('🚀 ~ file: user.js ~ line 77 ~ .then ~ res', res);
           // dispatch(getTotp());
           // dispatch(setUser(res.data.data));
-          if (res.data.data.validated) {
-            localStorage.setItem('currentUser',true)
+          const { validated, jwtToken } = res.data.data;
+          if (validated) {
+            localStorage.setItem('currentUser',jwtToken)
             dispatch(setUserAuthenticated(true));
           } else {
             dispatch(setErrorMessage('Código incorreto'));

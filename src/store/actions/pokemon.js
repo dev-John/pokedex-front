@@ -26,6 +26,11 @@ export function getPokemons() {
     const { page, rowsPerPage } = getState().pokemon;
 
     const params = { page, rowsPerPage };
+    
+    
+
+    const token = localStorage.getItem('currentUser');
+    api.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
 
     return api
       .get('/get-pokemons', { params })
