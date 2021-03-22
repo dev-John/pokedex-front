@@ -47,9 +47,7 @@ export function login({ email, password }) {
       .post('/login', payload)
       .then((res) => {
         if (isSuccess(res)) {
-          // dispatch(getTotp());
           dispatch(setUser(res.data.data));
-          dispatch(setUserAuthenticated('verification'))
         } else {
           dispatch(setErrorMessage(res.data.message));
         }
@@ -76,12 +74,9 @@ export function verifyUser(answer) {
       .post('/verify-otp', payload)
       .then((res) => {
         if (isSuccess(res)) {
-          console.log('🚀 ~ file: user.js ~ line 77 ~ .then ~ res', res);
-          // dispatch(getTotp());
-          // dispatch(setUser(res.data.data));
           const { validated, jwtToken } = res.data.data;
           if (validated) {
-            localStorage.setItem('currentUser',jwtToken)
+            localStorage.setItem('currentUser', jwtToken);
             dispatch(setUserAuthenticated(true));
           } else {
             dispatch(setErrorMessage('Código incorreto'));
@@ -94,20 +89,5 @@ export function verifyUser(answer) {
       .finally(() => {
         dispatch(setFetchingRequest(false));
       });
-  };
-}
-
-export function isAuthenticated() {
-  return (dispatch) => {
-    try {
-      const currentUser = localStorage.getItem('currentUser');
-      if (currentUser) {
-        dispatch(setUserAuthenticated(true))
-      } else {
-        dispatch(setUserAuthenticated(false))
-      } 
-    } catch (error) {
-      dispatch(setUserAuthenticated(false));
-    }
   };
 }

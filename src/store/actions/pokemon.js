@@ -26,11 +26,9 @@ export function getPokemons() {
     const { page, rowsPerPage } = getState().pokemon;
 
     const params = { page, rowsPerPage };
-    
-    
 
     const token = localStorage.getItem('currentUser');
-    api.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+    api.defaults.headers.common = { Authorization: `Bearer ${token}` };
 
     return api
       .get('/get-pokemons', { params })
@@ -49,6 +47,8 @@ export function getPokemonByName(name) {
     dispatch(setFetchingRequest(true));
 
     const params = { name };
+    const token = localStorage.getItem('currentUser');
+    api.defaults.headers.common = { Authorization: `Bearer ${token}` };
 
     return api
       .get('/get-pokemon-by-name', { params })
@@ -72,6 +72,9 @@ export function createPokemon() {
       pokemon,
     };
 
+    const token = localStorage.getItem('currentUser');
+    api.defaults.headers.common = { Authorization: `Bearer ${token}` };
+
     return api
       .post('/create-pokemon', payload)
       .then((res) => {
@@ -93,6 +96,9 @@ export function deletePokemon(_id) {
   return (dispatch, getState) => {
     dispatch(setFetchingRequest(true));
 
+    const token = localStorage.getItem('currentUser');
+    api.defaults.headers.common = { Authorization: `Bearer ${token}` };
+
     return api
       .delete(`/delete-pokemon/${_id}`)
       .then((res) => {
@@ -110,6 +116,8 @@ export function updatePokemon() {
     dispatch(setFetchingRequest(true));
 
     const { pokemon } = getState().pokemon;
+    const token = localStorage.getItem('currentUser');
+    api.defaults.headers.common = { Authorization: `Bearer ${token}` };
 
     return api
       .put('/update-pokemon', { pokemon })
