@@ -1,4 +1,4 @@
-import { SET_USER, SET_USER_AUTHENTICATED } from '../../constants/actionTypes';
+import { SET_SIGNEDUP, SET_USER, SET_USER_AUTHENTICATED } from '../../constants/actionTypes';
 import { api } from '../../helpers/http';
 import { makeActionCreator } from '../../helpers/mix';
 import { isSuccess } from '../action-utilities';
@@ -6,9 +6,10 @@ import { setErrorMessage, setFetchingRequest, setSuccessMessage } from './messag
 
 export const setUser = makeActionCreator(SET_USER, 'data');
 export const setUserAuthenticated = makeActionCreator(SET_USER_AUTHENTICATED, 'status');
+export const setUserSignedup = makeActionCreator(SET_SIGNEDUP, 'signedUp');
 
 export function signup({ name, email, password }) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setFetchingRequest(true));
 
     const payload = {
@@ -21,7 +22,8 @@ export function signup({ name, email, password }) {
       .post('/signup', payload)
       .then((res) => {
         if (isSuccess(res)) {
-          dispatch(setSuccessMessage('Usuário cadastrado com sucesso!'));
+          dispatch(setSuccessMessage('Cadastrado com sucesso, você já pode fazer login!'));
+          dispatch(setUserSignedup(true));
         } else {
           console.log(res.data);
           dispatch(setErrorMessage(res.data.message));
@@ -35,7 +37,7 @@ export function signup({ name, email, password }) {
 }
 
 export function login({ email, password }) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setFetchingRequest(true));
 
     const payload = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { ROUTES } from '../constants';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,11 +29,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup({ signup }) {
+export default function Signup({ signup, signedUp }) {
   const classes = useStyles();
+  const history = useHistory();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    signedUp && history.push(ROUTES.LOGIN);
+  }, [signedUp]);
 
   const sendRequest = (e) => {
     e.preventDefault();

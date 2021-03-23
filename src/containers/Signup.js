@@ -4,7 +4,8 @@ import Signup from '../components/Signup';
 import { signup } from '../store/actions/user';
 
 const mapStateToProperties = (state) => {
-  return {};
+  const { signedUp } = state.user;
+  return { signedUp };
 };
 
 const mapDispatchToProperties = (dispatch) => ({
