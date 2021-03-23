@@ -1,6 +1,21 @@
-Pokedex Frontend
+**Pokedex Frontend**
 
-Para executar o projeto
+A Pokedex Frontend in Reactjs
 
-npm install
-npm start
+Stack
+
+**Reactjs, Redux, Redux-Thunk, Material UI**
+
+Implementing
+
+**2FA (with QRCODE), JSONWEBTOKENS (JWT), FULL AUTHENTICATED FLOW**
+
+Para executar o projeto:
+
+    npm install
+    npm start
+    
+    
+Esta aplicação possui um backend em um repositório separado.
+
+Backend: https://github.com/dev-John/pokedex-api
